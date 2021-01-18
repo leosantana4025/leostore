@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head th:replace="~{base :: head}"></head>
+	<body onload="onLoad()">
+		<div th:replace="~{base :: logo}"></div>
+		<div th:replace="~{base :: navegacao}"></div>
+		<div id="ofertas" class="container">
+			<div th:replace="~{base :: titulo('Meus Pedidos')}"></div>
+			<nav
+				class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+				<div class="navbar-nav">
+					<a th:classappend="${status} == 'null' ? 'active'"
+						class="nav-item nav-link" href="/home">Todos</a> <a
+						th:classappend="${status} == 'aguardando' ? 'active'"
+						class="nav-item nav-link" href="/home/aguardando">Aguardando</a> <a
+						th:classappend="${status} == 'aprovado' ? 'active'"
+						class="nav-item nav-link" href="/home/aprovado">Aprovado</a> <a
+						th:classappend="${status} == 'entregue' ? 'active'"
+						class="nav-item nav-link" href="/home/entregue">Entregue</a>
+				</div>
+				<a href="/pedido/formulario"><button
+						class="btn btn-outline-secondary my-2 my-sm-0">Novo</button></a>
+			</nav>
+			<div v-for="pedido in pedidos" class="card mb-3">
+				<div class="card-header alert-warning">{{pedido.nomeProduto}}</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12 col-sm-8 mb-3">
+							<div class="row ">
+								<div class="col-md-5">
+									Valor: <input />
+								</div>
+								<div class="col-md-7">
+									Data da entrega: <input />
+								</div>
+							</div>
+							<div>
+								<div>URL do Produto</div>
+								<div><a v-bind:href="pedido.urlProduto">{{pedido.nomeProduto}}</a></div>
+							</div>
+							<div>
+								<div>Descrição do Produto</div>
+								<textarea class="form-control"
+									rows="" cols="">{{pedido.descricao}}</textarea>
+							</div>
+						</div>
+						<div class="col-12 col-sm-4">
+							<div>
+								<img v-bind:src="pedido.urlImagem" class="img-thumbnail"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+		<script type="text/javascript">
+			function onLoad() {
+				var app = new Vue({
+					el : '#ofertas',
+					data : {
+						pedidos : [ {
+							"nomeProduto" : "The Last of Us Part II",
+							"valorNegociado" : null,
+							"dataEntrega" : null,
+							"urlProduto" : "https://www.amazon.com.br/Last-Us-Part-II-PlayStation/dp/B07ZGFHZVZ/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=278M4XLAEGNSE&dchild=1&keywords=the+last+of+us+part+2&qid=1610462682&sprefix=the+last%2Caps%2C272&sr=8-1",
+							"urlImagem" : "https://images-na.ssl-images-amazon.com/images/I/61OZeW%2BpPYL._AC_SL1000_.jpg",
+							"descricao" : "The Last of Us Part II PS4",
+							"status" : "AGUARDANDO",
+							"user" : {
+								"username" : "leonardo",
+								"password" : "$2a$10$/VFz0N//xsHEwvKlt2cX8.w5ufivLgitJfcrZzkJTDgTPiywaemi2",
+								"enabled" : true
+							}
+						} ]
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
