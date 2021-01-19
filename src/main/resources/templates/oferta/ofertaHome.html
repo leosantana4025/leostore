@@ -26,23 +26,29 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12 col-sm-8 mb-3">
-							<div class="row ">
-								<div class="col-md-5">
-									Valor: <input />
-								</div>
-								<div class="col-md-7">
-									Data da entrega: <input />
-								</div>
-							</div>
 							<div>
 								<div>URL do Produto</div>
 								<div><a v-bind:href="pedido.urlProduto">{{pedido.nomeProduto}}</a></div>
 							</div>
 							<div>
 								<div>Descrição do Produto</div>
-								<textarea class="form-control"
+								<textarea disabled class="form-control"
 									rows="" cols="">{{pedido.descricao}}</textarea>
 							</div>
+							<div class="row mt-3">
+								<div class="col-md-5">
+									Valor: <input class="form-control" v-model="pedido.valorNegociado"/>
+								</div>
+								<div class="col-md-7">
+									Data da entrega: <input class="form-control" v-model="pedido.dataEntrega"/>
+								</div>
+							</div>
+							<div>
+								<div>Comentário</div>
+								<textarea v-model="pedido.comentario" class="form-control"
+									rows="" cols=""></textarea>
+							</div>
+							<button v-on:click="enviarOferta(pedido)" class="btn btn-primary mt-3">Enviar Oferta</button>
 						</div>
 						<div class="col-12 col-sm-4">
 							<div>
@@ -54,25 +60,23 @@
 			</div>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script type="text/javascript">
 			function onLoad() {
 				var app = new Vue({
-					el : '#ofertas',
-					data : {
-						pedidos : [ {
-							"nomeProduto" : "The Last of Us Part II",
-							"valorNegociado" : null,
-							"dataEntrega" : null,
-							"urlProduto" : "https://www.amazon.com.br/Last-Us-Part-II-PlayStation/dp/B07ZGFHZVZ/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=278M4XLAEGNSE&dchild=1&keywords=the+last+of+us+part+2&qid=1610462682&sprefix=the+last%2Caps%2C272&sr=8-1",
-							"urlImagem" : "https://images-na.ssl-images-amazon.com/images/I/61OZeW%2BpPYL._AC_SL1000_.jpg",
-							"descricao" : "The Last of Us Part II PS4",
-							"status" : "AGUARDANDO",
-							"user" : {
-								"username" : "leonardo",
-								"password" : "$2a$10$/VFz0N//xsHEwvKlt2cX8.w5ufivLgitJfcrZzkJTDgTPiywaemi2",
-								"enabled" : true
-							}
-						} ]
+					el: '#ofertas',
+					data: {
+						pedidos: []
+					},
+					mounted() {
+						axios
+						.get('http://localhost:8080/api/pedidos/aguardando')
+						.then(response => (this.pedidos = response.data))
+					},
+					methods: {
+						enviarOferta: function(pedido) {
+							console.log(pedido);
+						}
 					}
 				});
 			}

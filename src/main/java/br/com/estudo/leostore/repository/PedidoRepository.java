@@ -15,8 +15,9 @@ import br.com.estudo.leostore.model.Status;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-	@Cacheable("pedido")
 	List<Pedido> findByStatus(Status status, Pageable sort);
+	
+	List<Pedido> findByStatus(Status status);
 
 	@Query("select p from Pedido p join p.user u where u.username = :username")
 	List<Pedido> findAllByUsuario(@Param("username") String username);
