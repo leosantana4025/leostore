@@ -5,7 +5,7 @@
 		<div th:replace="~{base :: logo}"></div>
 		<div th:replace="~{base :: navegacao}"></div>
 		<div id="ofertas" class="container">
-			<div th:replace="~{base :: titulo('Meus Pedidos')}"></div>
+			<div th:replace="~{base :: titulo('Faça uma Oferta')}"></div>
 			<nav
 				class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
 				<div class="navbar-nav">
@@ -75,7 +75,17 @@
 					},
 					methods: {
 						enviarOferta: function(pedido) {
-							console.log(pedido);
+							axios
+							.post('http://localhost:8080/api/ofertas', {
+								pedidoId: pedido.id,
+								valor: pedido.valorNegociado,
+								dataEntrega: pedido.dataEntrega,
+								comentario: pedido.comentario
+							})
+							.then(response => alert('Oferta enviada com sucesso!'))
+							.catch(error => {
+								alert('Preencha todos os campos corretamente!')
+							})
 						}
 					}
 				});

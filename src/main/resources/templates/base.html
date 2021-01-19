@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
   <style type="text/css">
 	.logo-container {
-		background-color: #47BCFF;
+		background-color: #ff7400;
 		color: #FFF;
 	}
 	
@@ -28,12 +28,12 @@
 	<h1 class="display-4" th:text="${texto}"></h1>
 </div>
 
-<div th:fragment="navegacao" class="row" sec:authorize="isAuthenticated()">
+<div th:fragment="navegacao" sec:authorize="isAuthenticated()">
 	<div class="col">
 		<nav class="nav">
 			<a class="nav-link" th:href="@{/home}">Home</a>
-			<a class="nav-link" th:href="@{/usuario/pedido}">Meus Pedidos</a>
-			<a class="nav-link" th:href="@{/oferta}">Oferta</a>
+			<a class="nav-link" th:href="@{/usuario/pedido}">Meus Produtos</a>
+			<a class="nav-link" th:href="@{/oferta}">Fazer uma Oferta</a>
 		</nav>
 	</div>
 </div>

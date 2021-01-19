@@ -37,8 +37,9 @@ public class Pedido {
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private User user;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", fetch = FetchType.LAZY)
-	private List<Oferta> ofertas;
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "oferta", fetch = FetchType.LAZY)
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	private List<Oferta> ofertas;
 	
 	public Long getId() {
 		return id;
@@ -112,12 +113,12 @@ public class Pedido {
 		this.user = user;
 	}
 
-	public List<Oferta> getOfertas() {
-		return ofertas;
-	}
-
-	public void setOfertas(List<Oferta> ofertas) {
-		this.ofertas = ofertas;
-	}
+//	public List<Oferta> getOfertas() {
+//		return ofertas;
+//	}
+//
+//	public void setOfertas(List<Oferta> ofertas) {
+//		this.ofertas = ofertas;
+//	}
 	
 }
